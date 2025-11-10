@@ -1,0 +1,31 @@
+/* Base styles for Ritya Tools extension */
+:root {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2c2c2c;
+  --text-primary: #ecf0f1;
+  --text-secondary: #bdc3c7;
+  --border-color: #444;
+  --input-bg: #3a3a3a;
+  --input-border: #555;
+  --btn-primary: #3498db;
+  --btn-primary-hover: #2980b9;
+  --btn-success: #2ecc71;
+  --btn-success-hover: #27ae60;
+  --btn-reset: #95a5a6;
+  --btn-reset-hover: #7f8c8d;
+  --slider-bg: #555;
+  --slider-thumb: #3498db;
+  --highlight: #3498db;
+}
+
+/* Make sure our styles don't leak out to the rest of ComfyUI */
+#ritya-tools-root {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  color: var(--text-primary);
+}
+
+#ritya-tools-root * {
+  box-sizing: border-box;
+}

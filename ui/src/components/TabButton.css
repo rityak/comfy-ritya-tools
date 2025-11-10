@@ -1,0 +1,21 @@
+.tab-button {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #444);
+  background-color: var(--input-bg, #3a3a3a);
+  color: var(--text-primary, #ecf0f1);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.tab-button:hover {
+  background-color: var(--bg-secondary, #2c2c2c);
+}
+
+.tab-button.active {
+  background-color: var(--btn-primary, #3498db);
+  color: white;
+  border-color: var(--btn-primary, #3498db);
+}
