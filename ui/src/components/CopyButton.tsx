@@ -12,10 +12,13 @@ interface CopyButtonProps {
   label?: string
   onCopy?: () => void
   className?: string
+  disabled?: boolean
 }
 
-export function CopyButton({ text, label = 'Copy', onCopy, className = '' }: CopyButtonProps) {
+export function CopyButton({ text, label = 'Copy', onCopy, className = '', disabled = false }: CopyButtonProps) {
   const handleCopy = () => {
+    if (disabled) return
+    
     navigator.clipboard.writeText(text)
     
     if (window.app?.extensionManager?.toast) {
@@ -33,7 +36,7 @@ export function CopyButton({ text, label = 'Copy', onCopy, className = '' }: Cop
   }
 
   return (
-    <button onClick={handleCopy} className={`copy-btn ${className}`}>
+    <button onClick={handleCopy} className={`copy-btn ${className}`} disabled={disabled}>
       {label}
     </button>
   )

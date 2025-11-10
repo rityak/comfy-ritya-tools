@@ -23,3 +23,13 @@
   width: 100%;
 }
 
+.copy-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--btn-disabled, #95a5a6);
+}
+
+.copy-btn:disabled:hover {
+  background-color: var(--btn-disabled, #95a5a6);
+}
+

@@ -1,3 +1,4 @@
-export { ExampleTab } from './ExampleTab'
 export { KarcherMeanConfig } from './KarcherMeanConfig'
-
+export { WeightSumConfig } from './WeightSumConfig'
+export { TIESConfig } from './TIESConfig'
+export { TIESLoraConfig } from './TIESLoraConfig'
