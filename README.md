@@ -4,28 +4,34 @@ A ComfyUI extension providing configuration utilities and tools for model mergin
 
 ## Features
 
-- **Karcher Mean Configuration Generator**: Interactive UI for creating JSON configurations for the `karcher_mean_with_json` function
-- **Automatic Extension Management**: Automatically installs and updates the [mecha-ritya](https://github.com/rityak/mecha-ritya) extension when comfy-mecha is detected
-- **Conditional UI Display**: The "Ritya Tools" sidebar tab only appears when comfy-mecha is installed
-- **Modern React Interface**: Built with React, TypeScript, and Vite for a responsive and intuitive user experience
+-   **Multiple Configuration Generators**: Interactive UI for creating JSON configurations for various model merging methods:
+    -   **Karcher Mean**: Configuration for `karcher_mean_with_json` function
+    -   **Weight Sum**: Configuration for `weight_sum_with_json` function (normalized weighted sum)
+    -   **TIES Merging**: Configuration for `ties_merging_with_json` function with block-specific settings
+    -   **TIES LoRA**: Configuration for `ties_lora_merging_with_json` function for LoRA merging
+    -   **DELLA**: Configuration for `della_linear_with_json` and `della_with_json` functions
+-   **Automatic Extension Management**: Automatically installs and updates the [mecha-ritya](https://github.com/rityak/mecha-ritya) extension when comfy-mecha is detected
+-   **Conditional UI Display**: The "Ritya Tools" sidebar tab only appears when comfy-mecha is installed
+-   **Modern React Interface**: Built with React, TypeScript, and Vite for a responsive and intuitive user experience
+-   **Block-Specific Configuration**: Configure different weights and parameters for specific model blocks (input, middle, output, CLIP, etc.)
 
 ## Requirements
 
 This extension requires the following dependencies:
 
-- **[comfy-mecha](https://github.com/ljleb/comfy-mecha)**: A ComfyUI custom node pack for model merging. This is a required dependency.
-- **[mecha-ritya](https://github.com/rityak/mecha-ritya)**: An extension for comfy-mecha that provides additional merging functionality. This extension is automatically installed when comfy-mecha is detected.
+-   **[comfy-mecha](https://github.com/ljleb/comfy-mecha)**: A ComfyUI custom node pack for model merging. This is a required dependency.
+-   **[mecha-ritya](https://github.com/rityak/mecha-ritya)**: An extension for comfy-mecha that provides additional merging functionality. This extension is automatically installed when comfy-mecha is detected.
 
 ## Installation
 
 ### Prerequisites
 
 1. Install [comfy-mecha](https://github.com/ljleb/comfy-mecha) first:
-   ```bash
-   cd ComfyUI/custom_nodes
-   git clone https://github.com/ljleb/comfy-mecha.git
-   pip install -r comfy-mecha/requirements.txt
-   ```
+    ```bash
+    cd ComfyUI/custom_nodes
+    git clone https://github.com/ljleb/comfy-mecha.git
+    pip install -r comfy-mecha/requirements.txt
+    ```
 
 ### Install Ritya Tools
 
@@ -73,15 +79,63 @@ After installation and restarting ComfyUI:
 2. Look for the "Ritya Tools" tab in the ComfyUI sidebar
 3. Click to open the configuration utilities
 
-### Karcher Mean Configuration
+### Configuration Tabs
+
+#### Karcher Mean Configuration
 
 The Karcher Mean tab provides an interactive interface for:
 
-- Configuring the number of models (2-10)
-- Setting model weights with visual sliders
-- Configuring block-specific weights
-- Generating JSON configuration for use with `karcher_mean_with_json` function
-- Copying the generated JSON to clipboard
+-   Configuring the number of models (2-10)
+-   Setting model weights with visual sliders
+-   Configuring block-specific weights (input blocks, middle block, output blocks, CLIP L/G, time embed, label embed)
+-   Setting advanced parameters (max_iter, tolerance)
+-   Generating JSON configuration for use with `karcher_mean_with_json` function
+-   Copying the generated JSON to clipboard
+
+#### Weight Sum Configuration
+
+The Weight Sum tab provides an interactive interface for:
+
+-   Configuring the number of models (2-10)
+-   Setting normalized model weights (automatically normalized to sum to 1)
+-   Configuring block-specific weights for different model blocks
+-   Generating JSON configuration for use with `weight_sum_with_json` function
+-   Copying the generated JSON to clipboard
+
+#### TIES Merging Configuration
+
+The TIES Merging tab provides an interactive interface for:
+
+-   Configuring the number of models (2-10)
+-   Setting model weights and densities (magnitude-based trimming)
+-   Configuring block-specific weights, densities, and advanced options
+-   Advanced options: vote_sgn, apply_stock (Model Stock scaling), apply_median (Geometric Median)
+-   Global parameters: lambda, cos_eps, eps, maxiter, ftol
+-   Generating JSON configuration for use with `ties_merging_with_json` function
+-   Copying the generated JSON to clipboard
+
+#### TIES LoRA Configuration
+
+The TIES LoRA tab provides an interactive interface for:
+
+-   Configuring the number of LoRA models (2-10)
+-   Setting LoRA weights and global density
+-   Advanced options: vote_sgn, apply_stock, apply_median
+-   Global parameters: lambda, density, cos_eps, eps, maxiter, ftol
+-   Generating JSON configuration for use with `ties_lora_merging_with_json` function
+-   Copying the generated JSON to clipboard
+
+#### DELLA Configuration
+
+The DELLA tab provides an interactive interface for:
+
+-   Selecting merge type: DELLA Linear or DELLA TIES
+-   Configuring the number of models (2-10)
+-   Setting model weights, densities, and gammas (MAGPRUNE parameters)
+-   Configuring block-specific parameters
+-   Global parameters: lambda, vote_sgn (for DELLA TIES)
+-   Generating JSON configuration for use with `della_linear_with_json` or `della_with_json` functions
+-   Copying the generated JSON to clipboard
 
 ## Development
 
@@ -118,7 +172,10 @@ comfy-ritya-tools/
     │   │   └── TabButton.tsx
     │   └── tabs/               # Tab components
     │       ├── KarcherMeanConfig.tsx
-    │       └── ExampleTab.tsx
+    │       ├── WeightSumConfig.tsx
+    │       ├── TIESConfig.tsx
+    │       ├── TIESLoraConfig.tsx
+    │       └── DELLAConfig.tsx
     ├── package.json            # npm dependencies
     └── vite.config.ts          # Build configuration
 ```
@@ -127,7 +184,7 @@ comfy-ritya-tools/
 
 The extension provides the following API endpoint:
 
-- `GET /comfy-ritya-tools/check_mecha`: Returns JSON with `{"installed": true/false}` indicating whether comfy-mecha is installed
+-   `GET /comfy-ritya-tools/check_mecha`: Returns JSON with `{"installed": true/false}` indicating whether comfy-mecha is installed
 
 ## Troubleshooting
 
@@ -155,6 +212,6 @@ GNU General Public License v3
 
 ## Links
 
-- [comfy-mecha](https://github.com/ljleb/comfy-mecha) - Required dependency
-- [mecha-ritya](https://github.com/rityak/mecha-ritya) - Automatically installed extension
-- [ComfyUI Documentation](https://docs.comfy.org/) - Official ComfyUI documentation
+-   [comfy-mecha](https://github.com/ljleb/comfy-mecha) - Required dependency
+-   [mecha-ritya](https://github.com/rityak/mecha-ritya) - Automatically installed extension
+-   [ComfyUI Documentation](https://docs.comfy.org/) - Official ComfyUI documentation
