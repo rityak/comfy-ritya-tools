@@ -1,5 +1,5 @@
 .tab-button {
-  flex: 1;
+  flex: 0 1 auto;
   padding: 0.5rem 1rem;
   border: 1px solid var(--border-color, #444);
   background-color: var(--input-bg, #3a3a3a);
@@ -8,6 +8,7 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.2s;
+  min-width: fit-content;
 }
 
 .tab-button:hover {

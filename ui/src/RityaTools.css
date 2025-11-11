@@ -9,6 +9,7 @@
 
 .tabs-header {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.5rem;
   border-bottom: 1px solid var(--border-color, #444);

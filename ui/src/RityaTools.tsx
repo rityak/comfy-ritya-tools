@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import './RityaTools.css'
 import { TabButton } from './components'
-import { KarcherMeanConfig, WeightSumConfig, TIESConfig, TIESLoraConfig } from './tabs'
+import { KarcherMeanConfig, WeightSumConfig, TIESConfig, TIESLoraConfig, DELLAConfig } from './tabs'
 
-type TabType = 'karcher_mean' | 'weight_sum' | 'ties' | 'ties_lora'
+type TabType = 'karcher_mean' | 'weight_sum' | 'ties' | 'ties_lora' | 'della'
 
 function RityaTools() {
   const [activeTab, setActiveTab] = useState<TabType>('karcher_mean')
@@ -32,6 +32,11 @@ function RityaTools() {
           active={activeTab === 'ties_lora'}
           onClick={() => setActiveTab('ties_lora')}
         />
+        <TabButton
+          label="DELLA"
+          active={activeTab === 'della'}
+          onClick={() => setActiveTab('della')}
+        />
       </div>
 
       <div className="tab-content">
@@ -39,6 +44,7 @@ function RityaTools() {
         {activeTab === 'weight_sum' && <WeightSumConfig />}
         {activeTab === 'ties' && <TIESConfig />}
         {activeTab === 'ties_lora' && <TIESLoraConfig />}
+        {activeTab === 'della' && <DELLAConfig />}
       </div>
     </div>
   )
